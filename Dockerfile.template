@@ -1,14 +1,19 @@
-# base-image for node on any machine using a template variable,
-# see more about dockerfile templates here: http://docs.resin.io/deployment/docker-templates/
-# and about resin base images here: http://docs.resin.io/runtime/resin-base-images/
-# Note the node:slim image doesn't have node-gyp
-FROM resin/%%RESIN_MACHINE_NAME%%-node
+FROM resin/%%RESIN_MACHINE_NAME%%-debian
 
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.
 RUN apt-get update && apt-get install -yq \
     alsa-utils libasound2-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Install node
+ENV NODE_VERSION 6.9.1
+RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
+    echo "0b30184fe98bd22b859db7f4cbaa56ecc04f7f526313c8da42315d89fabe23b2  node-v$NODE_VERSION-linux-armv6l.tar.gz" | sha256sum -c - && \
+    tar -xzf "node-v$NODE_VERSION-linux-armv6l.tar.gz" -C /usr/local --strip-components=1 && \
+    rm "node-v$NODE_VERSION-linux-armv6l.tar.gz" && \
+    npm config set unsafe-perm true -g --unsafe-perm && \
+    rm -rf /tmp/*
 
 # Defines our working directory in container
 WORKDIR /usr/src/app
