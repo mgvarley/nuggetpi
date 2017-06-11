@@ -1,5 +1,5 @@
 {
-  "name": "simple-server-node",
+  "name": "nuggetpi",
   "version": "1.0.0",
   "description": "A simple Expressjs Web server on resin.io",
   "main": "server.js",
@@ -7,24 +7,17 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && git push resin master"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/resin-io-projects/simple-server-node.git"
+    "url": "git+https://github.com/mgvarley/nuggetpi"
   },
-  "keywords": [
-    "resin.io",
-    "webserver",
-    "nodejs",
-    "expressjs"
-  ],
-  "author": "Shaun Mulligan <shaun@resin.io>",
-  "license": "Apache-2.0",
+  "author": "Mark Varley <markgvarley@gmail.com>",
   "bugs": {
-    "url": "https://github.com/resin-io-projects/simple-server-node/issues"
+    "url": "https://github.com/mgvarley/nuggetpi/issues"
   },
-  "homepage": "https://github.com/resin-io-projects/simple-server-node#readme",
   "dependencies": {
     "express": "*",
     "react": "^15.5.4",
