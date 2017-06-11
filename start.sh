@@ -1,6 +1,6 @@
 #!/bin/bash
 
-iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j REDIRECT --to-port 3000
+npm install -g serve
 
 # Start the main application
-npm start
+serve -s build -p 80
