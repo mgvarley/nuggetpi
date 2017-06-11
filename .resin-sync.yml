@@ -1,5 +1,5 @@
 local_resinos: {}
-uuid: e23c1f4049fd10969331e20cf4476f59
+uuid: 0fe7264ee1158a284dc5762128bb210f
 destination: /usr/src/app
 ignore:
   - .git
