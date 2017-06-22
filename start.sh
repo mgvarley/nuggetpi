@@ -1,7 +1,7 @@
 #!/bin/bash
 
-# Start gpsd
-gpsd /dev/ttyUSB0
+# re-start gpsd service to pickup new config
+/etc/init.d/gpsd restart
 
 # Start the application
 npm start
