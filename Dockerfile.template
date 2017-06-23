@@ -6,7 +6,7 @@ RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie
 
 # Install dependencies
 RUN apt-get update && apt-get install -yq --no-install-recommends apt-utils \
-    gpsd gpsd-clients curl alsa-utils libasound2-dev \
+    gpsd gpsd-clients curl alsa-utils libasound2-dev gstreamer1.0-alsa \
     bluez python python-gobject python-cffi python-dbus python-alsaaudio \
     python-configparser sound-theme-freedesktop vorbis-tools \
     mopidy mopidy-spotify && \
