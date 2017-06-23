@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -yq --no-install-recommends apt-utils \
     gpsd gpsd-clients curl alsa-utils libasound2-dev \
     bluez python python-gobject python-cffi python-dbus python-alsaaudio \
     python-configparser sound-theme-freedesktop vorbis-tools \
-    mopidy mopidy-spotify mopidy-spotify-web  && \
+    mopidy mopidy-spotify && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install node
@@ -35,9 +35,9 @@ RUN mkdir /etc/bt_speaker
 COPY config/bt_speaker /etc/bt_speaker/config.ini
 
 # Copy the mopidy config into place
-RUN mkdir /home/root/.config
-RUN mkdir /home/root/.config/mopidy
-COPY config/mopidy /home/root/.config/mopidy/mopidy.conf
+RUN mkdir /root/.config
+RUN mkdir /root/.config/mopidy
+COPY config/mopidy /root/.config/mopidy/mopidy.conf
 
 # Install npm dependencies on the resin.io build server and cleanup after
 RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
