@@ -9,38 +9,38 @@ echo "Restarting GPSD..."
 /etc/init.d/gpsd restart
 
 # Add btspeaker user if it does not exist already
-echo
-echo "Adding btspeaker user..."
-id -u btspeaker &>/dev/null || useradd btspeaker -G audio
-echo "done."
+# echo
+# echo "Adding btspeaker user..."
+# id -u btspeaker &>/dev/null || useradd btspeaker -G audio
+# echo "done."
 
 # Download bt-speaker to /opt (or update if already present)
-echo
-cd /opt
-if [ -d bt-speaker ]; then
-  echo "Updating bt-speaker..."
-  cd bt-speaker && git pull
-else
-  echo "Downloading bt-speaker..."
-  git clone https://github.com/lukasjapan/bt-speaker.git
-fi
-echo "done."
+# echo
+# cd /opt
+# if [ -d bt-speaker ]; then
+#   echo "Updating bt-speaker..."
+#   cd bt-speaker && git pull
+# else
+#   echo "Downloading bt-speaker..."
+#   git clone https://github.com/lukasjapan/bt-speaker.git
+# fi
+# echo "done."
 
 # Install and start bt-speaker daemon
-echo
-echo "Registering and starting bt-speaker with systemd..."
-systemctl enable /opt/bt-speaker/bt_speaker.service
-if [ "`systemctl is-active bt_speaker`" != "active" ]; then
-  systemctl start bt_speaker
-else
-  systemctl restart bt_speaker
-fi
-systemctl status bt_speaker
-echo "done."
+# echo
+# echo "Registering and starting bt-speaker with systemd..."
+# systemctl enable /opt/bt-speaker/bt_speaker.service
+# if [ "`systemctl is-active bt_speaker`" != "active" ]; then
+#   systemctl start bt_speaker
+# else
+#   systemctl restart bt_speaker
+# fi
+# systemctl status bt_speaker
+# echo "done."
 
 # Finished
-echo
-echo "BT-Speaker has been installed."
+# echo
+# echo "BT-Speaker has been installed."
 
 # Configure mopidy with secret spotify details
 echo "Configuring Mopidy with Spotify credentials..."
@@ -49,7 +49,6 @@ printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\
 # Installing Mopidy extensions
 echo "Installing Mopidy extensions..."
 pip install Mopidy-Iris
-pip install Mopidy-Local-SQLite
 
 # Start mopidy
 echo "Starting the Mopidy service..."
@@ -60,7 +59,6 @@ else
   systemctl restart mopidy
 fi
 systemctl status mopidy
-mopidy local scan
 echo "done."
 
 # Start the Nugget UI
