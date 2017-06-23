@@ -41,4 +41,5 @@ echo
 echo "BT-Speaker has been installed."
 
 # Start the application
+cd /usr/src/app
 npm start
