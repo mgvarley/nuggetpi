@@ -44,7 +44,7 @@ echo "Restarting GPSD..."
 
 # Configure mopidy with secret spotify details
 echo "Configuring Mopidy with Spotify credentials..."
-printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\nclient_id = $SPOTIFY_CLIENT_ID\nclient_secret = $SPOTIFY_CLIENT_SECRET"  >> /root/.config/mopidy/mopidy.conf
+printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\nclient_id = $SPOTIFY_CLIENT_ID\nclient_secret = $SPOTIFY_CLIENT_SECRET"  >> /etc/mopidy/mopidy.conf
 
 # Installing Mopidy extensions
 echo "Installing Mopidy extensions..."

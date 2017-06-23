@@ -1,11 +1,21 @@
-[audio]
-output = alsasink device=hw:1,0
+[core]
+cache_dir = /var/cache/mopidy
+config_dir = /etc/mopidy
+data_dir = /var/lib/mopidy
+
+[logging]
+config_file = /etc/mopidy/logging.conf
+debug_file = /var/log/mopidy/mopidy-debug.log
 
 [local]
-enabled = true
 library = json
 media_dir = /root/media
-scan_flush_threshold = 100
+
+[m3u]
+playlists_dir = /var/lib/mopidy/playlists
+
+[audio]
+output = alsasink device=hw:1,0
 
 [mpd]
 enabled = true
