@@ -1,6 +1,9 @@
 [audio]
 output = alsasink device=hw:1,0
 
+[local-sqlite]
+enabled = true
+
 [local]
 enabled = true
 library = sqlite
