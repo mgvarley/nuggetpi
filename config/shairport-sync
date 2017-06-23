@@ -6,6 +6,6 @@ general =
 
 alsa =
 {
-  output_device = "hw:1,0";
-  mixer_control_name = "PCM";
+  output_device = "hw:1";
+  mixer_control_name = "DSP Program";
 };

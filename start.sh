@@ -56,7 +56,7 @@ sudo make install
 
 # Start shairport-sync
 echo "Starting the Shairport-Sync service..."
-sudo systemctl enable shairport-sync
+systemctl enable shairport-sync
 if [ "`systemctl is-active shairport-sync`" != "active" ]; then
   systemctl start shairport-sync
 else
