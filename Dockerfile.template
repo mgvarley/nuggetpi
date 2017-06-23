@@ -2,7 +2,7 @@ FROM resin/%%RESIN_MACHINE_NAME%%-buildpack-deps
 
 # use apt-get if you need to install dependencies,
 # for instance if you need ALSA sound utils, just uncomment the lines below.
-RUN apt-get update && apt-get install -yq \
+RUN apt-get update && apt-get install -yq --no-install-recommends apt-utils \
     gpsd gpsd-clients curl alsa-utils libasound2-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -23,6 +23,10 @@ COPY package.json package.json
 
 # Copy the gpsd config into place
 COPY config/gpsd /etc/default/gpsd
+
+# Copy the gpsd config into place
+RUN mkdir /etc/bt_speaker
+COPY config/bt_speaker /etc/bt_speaker/config.ini
 
 # This install npm dependencies on the resin.io build server,
 # making sure to clean up the artifacts it creates in order to reduce the image size.
