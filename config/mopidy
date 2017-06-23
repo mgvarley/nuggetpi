@@ -6,3 +6,9 @@ enabled = true
 library = json
 media_dir = /root/media
 scan_flush_threshold = 100
+
+[http]
+enabled = true
+hostname = 0.0.0.0
+port = 6680
+zeroconf = Mopidy HTTP server on $hostname
