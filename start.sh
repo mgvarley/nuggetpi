@@ -40,6 +40,9 @@ echo "done."
 echo
 echo "BT-Speaker has been installed."
 
+# Start mopidy
+systemctl enable mopidy
+
 # Start the application
 cd /usr/src/app
 npm start
