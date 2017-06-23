@@ -42,6 +42,10 @@ echo "done."
 echo
 echo "BT-Speaker has been installed."
 
+# Configure mopidy with secret spotify details
+echo "Configuring Mopidy with Spotify credentials..."
+printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\nclient_id = $SPOTIFY_CLIENT_ID\nclient_secret = $SPOTIFY_CLIENT_SECRET"  >> /root/.config/mopidy/mopidy.conf
+
 # Start mopidy
 echo "Starting the Mopidy service..."
 systemctl enable mopidy

@@ -1,0 +1,2 @@
+[audio]
+output = alsasink device=hw:1,0
