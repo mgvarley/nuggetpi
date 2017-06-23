@@ -29,3 +29,7 @@ enabled = true
 hostname = ::
 port = 6680
 zeroconf = Mopidy HTTP server on $hostname
+
+[tunein]
+enabled = true
+timeout = 5000
