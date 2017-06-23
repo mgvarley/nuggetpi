@@ -7,8 +7,14 @@ library = json
 media_dir = /root/media
 scan_flush_threshold = 100
 
+[mpd]
+enabled = true
+hostname = ::
+port = 6600
+zeroconf = Mopidy MPD server on $hostname
+
 [http]
 enabled = true
-hostname = 0.0.0.0
+hostname = ::
 port = 6680
 zeroconf = Mopidy HTTP server on $hostname
