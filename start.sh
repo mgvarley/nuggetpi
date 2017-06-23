@@ -46,6 +46,11 @@ echo "BT-Speaker has been installed."
 echo "Configuring Mopidy with Spotify credentials..."
 printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\nclient_id = $SPOTIFY_CLIENT_ID\nclient_secret = $SPOTIFY_CLIENT_SECRET"  >> /root/.config/mopidy/mopidy.conf
 
+# Installing Mopidy extensions
+echo "Installing Mopidy extensions..."
+pip install Mopidy-Iris
+pip install Mopidy-Local-SQLite
+
 # Start mopidy
 echo "Starting the Mopidy service..."
 systemctl enable mopidy
@@ -55,6 +60,7 @@ else
   systemctl restart mopidy
 fi
 systemctl status mopidy
+mopidy local scan
 echo "done."
 
 # Start the Nugget UI

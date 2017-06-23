@@ -1,2 +1,6 @@
 [audio]
 output = alsasink device=hw:1,0
+
+[local]
+library = sqlite
+scan_flush_threshold = 100
