@@ -6,6 +6,8 @@ RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie
 
 # Install dependencies
 RUN apt-get update && apt-get install -yq --no-install-recommends apt-utils \
+    autoconf automake libtool libdaemon-dev libpopt-dev \
+    libconfig-dev avahi-daemon libavahi-client-dev libssl-dev libsoxr-dev \
     gpsd gpsd-clients curl alsa-utils libasound2-dev gstreamer1.0-alsa bluez \
     python python-pip python-gobject python-cffi python-dbus python-alsaaudio \
     python-configparser sound-theme-freedesktop vorbis-tools \
@@ -36,6 +38,9 @@ COPY config/bt_speaker /etc/bt_speaker/config.ini
 
 # Copy the mopidy config into place
 COPY config/mopidy /etc/mopidy/mopidy.conf
+
+# Copy the mopidy shairport-sync. into place
+COPY config/shairport-sync /etc/shairport-sync.conf
 
 # Install npm dependencies on the resin.io build server and cleanup after
 RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*

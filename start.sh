@@ -42,6 +42,29 @@ echo "Restarting GPSD..."
 # echo
 # echo "BT-Speaker has been installed."
 
+# Download and configure Shairport-Sync
+echo "Downloading Shairport-Sync..."
+cd /opt
+git clone https://github.com/mikebrady/shairport-sync.git
+cd shairport-sync
+autoreconf -i -f
+./configure --with-alsa --with-avahi --with-ssl=openssl --with-metadata --with-systemd --with-soxr --sysconfdir=/etc
+make
+getent group shairport-sync &>/dev/null || groupadd -r shairport-sync >/dev/null
+getent passwd shairport-sync &> /dev/null || useradd -r -M -g shairport-sync -s /usr/bin/nologin -G audio shairport-sync >/dev/null
+sudo make install
+
+# Start shairport-sync
+echo "Starting the Shairport-Sync service..."
+sudo systemctl enable shairport-sync
+if [ "`systemctl is-active shairport-sync`" != "active" ]; then
+  systemctl start shairport-sync
+else
+  systemctl restart shairport-sync
+fi
+systemctl status shairport-sync
+echo "done."
+
 # Configure mopidy with secret spotify details
 echo "Configuring Mopidy with Spotify credentials..."
 printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\nclient_id = $SPOTIFY_CLIENT_ID\nclient_secret = $SPOTIFY_CLIENT_SECRET"  >> /etc/mopidy/mopidy.conf
