@@ -35,7 +35,6 @@ RUN mkdir /etc/bt_speaker
 COPY config/bt_speaker /etc/bt_speaker/config.ini
 
 # Copy the mopidy config into place
-RUN mkdir /root/media
 COPY config/mopidy /etc/mopidy/mopidy.conf
 
 # Install npm dependencies on the resin.io build server and cleanup after

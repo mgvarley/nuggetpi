@@ -8,8 +8,9 @@ config_file = /etc/mopidy/logging.conf
 debug_file = /var/log/mopidy/mopidy-debug.log
 
 [local]
-library = json
+library = sqlite
 media_dir = /root/media
+scan_flush_threshold = 100
 
 [m3u]
 playlists_dir = /var/lib/mopidy/playlists

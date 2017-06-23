@@ -48,10 +48,12 @@ printf "\n[spotify]\nusername = $SPOTIFY_USERNAME\npassword = $SPOTIFY_PASSWORD\
 
 # Installing Mopidy extensions
 echo "Installing Mopidy extensions..."
+pip install Mopidy-Local-SQLite
 pip install Mopidy-Iris
 
 # Start mopidy
 echo "Starting the Mopidy service..."
+mkdir /root/media && chown mopidy /root/media
 systemctl enable mopidy
 if [ "`systemctl is-active mopidy`" != "active" ]; then
   systemctl start mopidy
