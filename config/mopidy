@@ -2,5 +2,7 @@
 output = alsasink device=hw:1,0
 
 [local]
+enabled = true
 library = sqlite
+media_dir = /root/media
 scan_flush_threshold = 100

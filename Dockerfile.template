@@ -35,6 +35,7 @@ RUN mkdir /etc/bt_speaker
 COPY config/bt_speaker /etc/bt_speaker/config.ini
 
 # Copy the mopidy config into place
+RUN mkdir /root/media
 RUN mkdir /root/.config
 RUN mkdir /root/.config/mopidy
 COPY config/mopidy /root/.config/mopidy/mopidy.conf
