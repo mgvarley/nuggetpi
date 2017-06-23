@@ -4,12 +4,12 @@ FROM resin/%%RESIN_MACHINE_NAME%%-buildpack-deps
 RUN wget -q -O - https://apt.mopidy.com/mopidy.gpg | apt-key add -
 RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/jessie.list
 
-# use apt-get if you need to install dependencies,
-# for instance if you need ALSA sound utils, just uncomment the lines below.
+# Install dependencies
 RUN apt-get update && apt-get install -yq --no-install-recommends apt-utils \
     gpsd gpsd-clients curl alsa-utils libasound2-dev \
     bluez python python-gobject python-cffi python-dbus python-alsaaudio \
-    python-configparser sound-theme-freedesktop vorbis-tools mopidy && \
+    python-configparser sound-theme-freedesktop vorbis-tools \
+    mopidy mopidy-spotify mopidy-spotify-web  && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install node
@@ -21,28 +21,32 @@ RUN curl -SLO "http://nodejs.org/dist/v$NODE_VERSION/node-v$NODE_VERSION-linux-a
     npm config set unsafe-perm true -g --unsafe-perm && \
     rm -rf /tmp/*
 
-# Defines our working directory in container
+# Define our working directory in container
 WORKDIR /usr/src/app
 
-# Copies the package.json first for better cache on later pushes
+# Copy the package.json first for better cache on later pushes
 COPY package.json package.json
 
 # Copy the gpsd config into place
 COPY config/gpsd /etc/default/gpsd
 
-# Copy the gpsd config into place
+# Copy the bt_speaker config into place
 RUN mkdir /etc/bt_speaker
 COPY config/bt_speaker /etc/bt_speaker/config.ini
 
-# This install npm dependencies on the resin.io build server,
-# making sure to clean up the artifacts it creates in order to reduce the image size.
+# Copy the mopidy config into place
+RUN mkdir /home/root/.config
+RUN mkdir /home/root/.config/mopidy
+COPY config/mopidy /home/root/.config/mopidy/mopidy.conf
+
+# Install npm dependencies on the resin.io build server and cleanup after
 RUN JOBS=MAX npm install --production --unsafe-perm && npm cache clean && rm -rf /tmp/*
 
-# This will copy all files in our root to the working  directory in the container
+# Copy all files in our root to the working directory in the container
 COPY . ./
 
 # Enable systemd init system in container
 ENV INITSYSTEM on
 
-# Start application
+# Run the start script
 CMD ["bash", "start.sh"]

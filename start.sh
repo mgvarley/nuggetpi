@@ -1,12 +1,14 @@
 #!/bin/bash
 
 # setup the X400
+echo "Configuring the X400..."
 printf "snd_soc_bcm2708\nsnd_soc_bcm2708_i2s\nbcm2708_dmaengine\nsnd_soc_pcm512x\nsnd_soc_iqaudio_dac"  >> /etc/modules
 
 # re-start gpsd service to pickup new config
+echo "Restarting GPSD..."
 /etc/init.d/gpsd restart
 
-# Add btspeaker user if not exist already
+# Add btspeaker user if it does not exist already
 echo
 echo "Adding btspeaker user..."
 id -u btspeaker &>/dev/null || useradd btspeaker -G audio
@@ -41,8 +43,20 @@ echo
 echo "BT-Speaker has been installed."
 
 # Start mopidy
+echo "Starting the Mopidy service..."
 systemctl enable mopidy
+if [ "`systemctl is-active mopidy`" != "active" ]; then
+  systemctl start mopidy
+else
+  systemctl restart mopidy
+fi
+systemctl status mopidy
+echo "done."
 
-# Start the application
+# Start the Nugget UI
+echo "Starting the Nugget UI..."
 cd /usr/src/app
 npm start
+
+# We're done, let's celebrate
+echo "Done, let's make this Nugget sing!"
